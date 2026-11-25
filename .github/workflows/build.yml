@@ -11,7 +11,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Configure
         run: cmake -S . -B build -A x64
@@ -20,7 +20,7 @@ jobs:
         run: cmake --build build --config Release --target Caustic_VST3
 
       - name: Upload VST3 artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: Caustic-Windows-VST3
           path: build/Caustic_artefacts/Release/VST3
