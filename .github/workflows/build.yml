@@ -1,0 +1,27 @@
+name: Build Caustic
+
+on:
+  push:
+    branches: [ main, "feature/**" ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -S . -B build -A x64
+
+      - name: Build VST3
+        run: cmake --build build --config Release --target Caustic_VST3
+
+      - name: Upload VST3 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Caustic-Windows-VST3
+          path: build/Caustic_artefacts/Release/VST3
+          if-no-files-found: warn
